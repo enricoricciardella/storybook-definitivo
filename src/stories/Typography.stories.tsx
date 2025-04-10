@@ -7,6 +7,7 @@ export default {
   parameters: {
     layout: "centered", // Imposta il layout centrato per la visualizzazione della story
   },
+  tags: ["autodocs"],
   docs: {
     description: {
       component:
@@ -24,9 +25,8 @@ export const TypographyExamples: Story = () => (
     {typographyEntries.map(([key, style]) => (
       <div key={key} style={{ textAlign: "center" }}>
         <p style={{ ...(style as React.CSSProperties), margin: "0" }}>
-          {`Esempio ${key}`}
+        {`Questo è il formato: ${key}`}
         </p>
-        <code>{JSON.stringify(style)}</code>
       </div>
     ))}
   </div>

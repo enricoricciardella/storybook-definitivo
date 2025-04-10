@@ -1,0 +1,46 @@
+/* tabs.css */
+.tabs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 1rem auto;
+    font-family: sans-serif;
+  }
+  
+  /* Barra dei pulsanti */
+  .tab-buttons {
+    display: flex;
+    flex-wrap: wrap; /* Se vuoi che vadano a capo su più righe */
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  
+  /* Stile di base per il pulsante */
+  .tab-button {
+    padding: 0.75rem 1.25rem;
+    border: 1px solid #ccc;
+    border-radius: 9999px; /* effetto pill */
+    background-color: #f5f5f5;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .tab-button:hover {
+    background-color: #eaeaea;
+  }
+  
+  /* Stato attivo */
+  .tab-button.active {
+    border: 2px solid #6daeef;
+    background-color: #e6f0ff;
+  }
+  
+  /* Sezione di contenuto */
+  .tab-content {
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: #fff;
+  }

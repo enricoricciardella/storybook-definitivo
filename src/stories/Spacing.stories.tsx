@@ -7,6 +7,7 @@ export default {
   parameters: {
     layout: 'centered',
   },
+  tags: ['autodocs'],
     docs: {
       description: {
         component: 'Questa story mostra i valori di spacing definiti nel nostro design system e come vengono applicati visivamente.',
