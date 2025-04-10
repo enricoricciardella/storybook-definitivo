@@ -1,46 +1,73 @@
-/* tabs.css */
-.tabs-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+/* Tabs.css */
+
+/* Variabili per la modalità light */
+:root {
+    --tabs-bg: #fff;
+    --tabs-text: #333;
+    --tabs-border: #ccc;
+    --tabs-active: #0070f3;
+    --tabs-hover: #f0f0f0;
+    --tabs-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Container principale */
+  .tabs-container {
     max-width: 600px;
     margin: 1rem auto;
-    font-family: sans-serif;
+    font-family: 'Arial', sans-serif;
+    box-shadow: var(--tabs-shadow);
+    border-radius: 8px;
+    overflow: hidden;
   }
   
   /* Barra dei pulsanti */
   .tab-buttons {
     display: flex;
-    flex-wrap: wrap; /* Se vuoi che vadano a capo su più righe */
-    gap: 0.5rem;
-    justify-content: center;
+    background-color: var(--tabs-bg);
+    border-bottom: 2px solid var(--tabs-border);
   }
   
-  /* Stile di base per il pulsante */
+  /* Pulsanti */
   .tab-button {
-    padding: 0.75rem 1.25rem;
-    border: 1px solid #ccc;
-    border-radius: 9999px; /* effetto pill */
-    background-color: #f5f5f5;
+    flex: 1;
+    padding: 12px;
+    background: var(--tabs-bg);
+    color: var(--tabs-text);
+    border: none;
     cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.2s ease-in-out;
+    transition: background 0.3s, color 0.3s;
+    border-right: 1px solid var(--tabs-border);
+  }
+  .tab-button:last-child {
+    border-right: none;
+  }
+  
+  .tab-button.active {
+    background-color: var(--tabs-active);
+    color: #fff;
+    font-weight: bold;
   }
   
   .tab-button:hover {
-    background-color: #eaeaea;
-  }
+    background-color: var(--tabs-hover);
+  }  
   
-  /* Stato attivo */
-  .tab-button.active {
-    border: 2px solid #6daeef;
-    background-color: #e6f0ff;
-  }
-  
-  /* Sezione di contenuto */
+  /* Contenuto delle tab */
   .tab-content {
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    background-color: #fff;
+    background: var(--tabs-bg);
+    color: var(--tabs-text);
+    border: 1px solid var(--tabs-border);
+    border-top: none;
+    padding: 16px;
+  }
+  
+  /* Modalità Dark */
+  /* Quando viene applicata la classe "dark" al contenitore, ridefiniamo le variabili */
+  .dark {
+    --tabs-bg: #333;
+    --tabs-text: #ddd;
+    --tabs-border: #555;
+    --tabs-active: #1e90ff;
+    --tabs-hover: #444;
+    --tabs-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
   }
