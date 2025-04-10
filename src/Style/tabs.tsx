@@ -28,7 +28,8 @@ const Tabs: React.FC<TabsProps> = ({ tabs, defaultActive = 0 }) => {
 
   return (
     <div className="tabs-container">
-      <div className="tab-buttons">
+      {/* Aggiungiamo role="tablist" al contenitore dei pulsanti */}
+      <div className="tab-buttons" role="tablist">
         {tabs.map((tab, index) => (
           <button
             key={tab.label}
@@ -38,13 +39,14 @@ const Tabs: React.FC<TabsProps> = ({ tabs, defaultActive = 0 }) => {
             className={`tab-button ${index === activeTab ? 'active' : ''}`}
             role="tab"
             aria-selected={index === activeTab}
+            aria-controls={`tabpanel-${index}`}
             tabIndex={index === activeTab ? 0 : -1}
           >
             {tab.label}
           </button>
         ))}
       </div>
-      <div className="tab-content" role="tabpanel">
+      <div className="tab-content" role="tabpanel" id={`tabpanel-${activeTab}`}>
         {tabs[activeTab].content}
       </div>
     </div>

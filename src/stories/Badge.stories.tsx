@@ -1,84 +1,64 @@
-import { Meta, Story } from "@storybook/react";
-import { Badge, BadgeProps } from "../Style/Badge"; // Assicurati che il percorso sia corretto
+// /Users/badrich/Desktop/story-book-def/storybook-definitivissimo/src/Style/Badge.stories.tsx
+import React from 'react';
+import { Meta, StoryObj } from '@storybook/react';
+import { Badge, BadgeProps } from '../Style/Badge'; // Percorso coerente con la localizzazione del file
+import '../Style/Badge.css';
 
-
-export default {
-  title: "Design System/Badge", // Titolo della story: mostra il componente Badge
-  component: Badge, // Associa il componente Badge per far funzionare i controlli autodocs
-  parameters: {
-    layout: "centered", // Imposta il layout centrato per una visualizzazione migliore
+const meta: Meta<BadgeProps> = {
+  title: 'Design System/Badge',
+  component: Badge,
+  tags: ['autodocs'], // Abilita la generazione automatica della documentazione in Storybook 7+
+  argTypes: {
+    text: { control: 'text' },
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'invertito', 'positivo'],
+    },
+    backgroundColor: { control: { type: 'color' } },
+    textColor: { control: { type: 'color' } },
   },
   args: {
-    text: "Badge", // Testo predefinito per il badge
+    text: 'Badge',
+    variant: 'default',
   },
-  argTypes: {
-    text: { control: "text" }, // Controllo per modificare il testo
-    variant: {
-      control: { type: "select" },
-      options: ["Default", "invertito", "positivo"],
-    },
+};
+export default meta;
+
+// Tipologia di Story
+type Story = StoryObj<BadgeProps>;
+
+// Story singola: Badge di default
+export const DefaultBadge: Story = {
+  args: {
+    text: 'Badge',
+    variant: 'default',
   },
-} as Meta<BadgeProps>;
+};
 
-// Story che mostra tutti i badge contemporaneamente, utilizzando gli args per modificare il testo
-export const AllBadges: Story<BadgeProps> = (args) => {
-  // Array dei colori preimpostati per i badge
-  const badgeColors = [
-    { name: "Primary", background: "black", text: "#fff" },
-    { name: "Danger", background: "red", text: "#fff" },
-    { name: "Warning", background: "#ffc107", text: "#fff" },
-    { name: "Info", background: "#64b5f6", text: "#fff" },
-  ];
+// Story singola: Badge invertito
+export const InvertitoBadge: Story = {
+  args: {
+    text: 'Badge invertito',
+    variant: 'invertito',
+  },
+};
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "16px",
-        justifyContent: "center",
-      }}
-    >
-      {badgeColors.map((badge, index) => (
-        <Badge
-          key={index}
-          text={args.text}
-          backgroundColor={badge.background}
-          textColor={badge.text}
-        />
-      ))}
+// Story singola: Badge positivo
+export const PositivoBadge: Story = {
+  args: {
+    text: 'Badge positivo',
+    variant: 'positivo',
+  },
+};
+
+// Story che li mostra tutti insieme in una riga o colonna
+export const AllBadges: Story = {
+  name: 'Docs',
+  render: () => (
+    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+      <Badge text="Default" variant="default" />
+      <Badge text="Invertito" variant="invertito" />
+      <Badge text="Positivo" variant="positivo" />
     </div>
-  );
+  ),
 };
-
-AllBadges.args = {
-  text: "Badge",
-};
-
-// Story per visualizzare un singolo badge con varianti selezionabili tramite controlli Storybook
-export const BadgeVariants: Story<BadgeProps> = (args) => {
-  // Mapping dei vari stili in base alla variante scelta
-  const variantMap: Record<string, { background: string; text: string }> = {
-    Default: { background: "#0070f3", text: "#fff" },
-    invertito: { background: "#fff", text: "#0070f3" },
-    positivo: { background: "#28a745", text: "#fff" },
-  };
-
-  // Se la variante non è riconosciuta, usa il default
-  const { background, text } = variantMap[args.variant as keyof typeof variantMap] || variantMap.Default;
-
-  return (
-    <Badge
-      text={args.text}
-      backgroundColor={background}
-      textColor={text}
-    />
-  );
-};
-
-BadgeVariants.args = {
-  text: "Badge",
-  variant: "Default",
-};
-
-
