@@ -1,22 +1,24 @@
+// /src/Style/Input.tsx
 import React from 'react';
 import './Input.css';
 
 export interface InputProps {
-  /** Testo mostrato come etichetta a sinistra */
+  /** Etichetta del campo */
   label: string;
-  /** Tipo di input */
+  /** Tipo di input: "text", "select" oppure "radio" */
   type: 'text' | 'select' | 'radio';
-  /** Valore corrente (per text e select) */
+  /** Valore corrente (per il campo text e select) */
   value?: string;
   /** Opzioni per select e radio */
   options?: string[];
-  /** Handler per aggiornamento (text, select, radio) */
+  /** Handler per il cambiamento (text, select, radio) */
   onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }
 
 /**
- * Componente Input inline con label a sinistra e campo a destra.
- * Supporta 3 varianti: text, select, radio.
+ * Componente Input inline con etichetta e campo.
+ * - Per "text" e "select": utilizza una <label> associata all'input.
+ * - Per "radio": avvolge le opzioni in un <fieldset> con <legend>.
  */
 export const Input: React.FC<InputProps> = ({
   label,
@@ -25,11 +27,21 @@ export const Input: React.FC<InputProps> = ({
   options,
   onChange,
 }) => {
+  // Creiamo un id univoco basato sul label (assumendo che il label sia univoco per ogni istanza)
+  const id = `${type}-${label.replace(/\s+/g, '-').toLowerCase()}`;
+
   if (type === 'select') {
     return (
       <div className="input-wrapper">
-        <span className="input-label">{label}</span>
-        <select className="input-select" value={value} onChange={onChange}>
+        <label className="input-label" htmlFor={id}>
+          {label}
+        </label>
+        <select
+          id={id}
+          className="input-select"
+          value={value}
+          onChange={onChange}
+        >
           {options?.map((opt) => (
             <option key={opt} value={opt}>
               {opt}
@@ -38,18 +50,16 @@ export const Input: React.FC<InputProps> = ({
         </select>
       </div>
     );
-  }
-
-  if (type === 'radio') {
+  } else if (type === 'radio') {
     return (
-      <div className="input-wrapper">
-        <span className="input-label">{label}</span>
+      <fieldset className="input-wrapper">
+        <legend className="input-label">{label}</legend>
         <div className="input-radio-group">
           {options?.map((opt) => (
             <label key={opt} className="input-radio-label">
               <input
                 type="radio"
-                name={label}
+                name={id} // usa l'id come nome per raggruppare le radio
                 value={opt}
                 onChange={onChange}
                 className="input-radio"
@@ -59,22 +69,26 @@ export const Input: React.FC<InputProps> = ({
             </label>
           ))}
         </div>
+      </fieldset>
+    );
+  } else {
+    // type === 'text'
+    return (
+      <div className="input-wrapper">
+        <label className="input-label" htmlFor={id}>
+          {label}
+        </label>
+        <input
+          id={id}
+          type="text"
+          className="input-text"
+          value={value}
+          onChange={onChange}
+          placeholder="Scrivi qui..."
+        />
       </div>
     );
   }
-
-  // type === 'text'
-  return (
-    <div className="input-wrapper">
-      <span className="input-label">{label}</span>
-      <input
-        type="text"
-        className="input-text"
-        value={value}
-        onChange={onChange}
-      />
-    </div>
-  );
 };
 
 export default Input;
